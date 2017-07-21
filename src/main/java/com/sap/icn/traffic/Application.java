@@ -1,5 +1,8 @@
 package com.sap.icn.traffic;
 
+import com.sap.icn.traffic.calculation.Calculator;
+import com.sap.icn.traffic.calculation.DateTimeUtil;
+import com.sap.icn.traffic.calculation.TaxiPointUtil;
 import com.sap.traffic.foundation.traffic_lib.ITaxiMonitor;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -13,7 +16,7 @@ import java.util.List;
 /**
  * Hello world!
  */
-public class App {
+public class Application {
     public static void main(String[] args) {
         boolean isLocal = false;
 

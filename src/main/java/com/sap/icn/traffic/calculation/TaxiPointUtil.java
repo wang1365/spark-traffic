@@ -1,4 +1,4 @@
-package com.sap.icn.traffic;
+package com.sap.icn.traffic.calculation;
 
 import com.sap.traffic.foundation.traffic_lib.ITaxiMonitor;
 import org.slf4j.Logger;

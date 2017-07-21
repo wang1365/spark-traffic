@@ -1,4 +1,4 @@
-package com.sap.icn.traffic;
+package com.sap.icn.traffic.calculation;
 
 
 import java.time.*;
