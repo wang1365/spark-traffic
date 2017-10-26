@@ -45,21 +45,27 @@ public class Application {
         JavaPairRDD<Long, List<ITaxiMonitor.TaxiPoint>> slotsIn5 = taxiPointRDD
                 .keyBy(point -> (DateTimeUtil.parseToMillSecond(point.receiveTime, "UTC+8") / 300000) * 300000)
                 .combineByKey(
+                        // 收到每个key的第一条记录时的初始化工作
                         v -> {
                             List<ITaxiMonitor.TaxiPoint> points = new ArrayList();
                             points.add(v);
                             return points;
                         },
+            
+                        // 对于某个key，收到新的记录时的操作
                         (c, v) -> {
                             c.add(v);
                             return c;
                         },
+            
+                        // 一个key的集合可能分布在多个task上，如何合并同一个key的操作
                         (c1, c2) -> {
                             c1.addAll(c2);
                             return c1;
                         }
                 )
                 .sortByKey();
+        // 一个key代表5分钟的交通数据集合，对每个5分钟的集合调用计算接口计算出交通速度
         slotsIn5.map(slot -> calculator.execute(slot._2(), slot._1(), slot._1()))
                 .collect().forEach(speedResult -> {
                     speedResult.getTimedEdgeSpeeds().forEach(timedEdgeSpeeds -> {
