@@ -1,4 +1,5 @@
-# hadoop-sample
+# Spark-traffic  
+使用spark处理离线的交通数据，生成交通KPI数据
 
 ## How to run it?
 1. Copy `hadoopsample-1.0-SNAPSHOT.jar` to master node
